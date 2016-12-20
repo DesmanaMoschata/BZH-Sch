@@ -1,0 +1,2 @@
+include ':app'
+include 'D:\\wk\\as\\BZH-Sch\\app\\assets\\scddata.sql'

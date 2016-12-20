@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BZH-Sch.iml" filepath="$PROJECT_DIR$/BZH-Sch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/D/D.iml" filepath="$PROJECT_DIR$/D/D.iml" />
+      <module fileurl="file://$PROJECT_DIR$/D/wk/as/BZH-Sch/app/assets/scddata.sql/_wk_as_BZH-Sch_app_assets_scddata.sql.iml" filepath="$PROJECT_DIR$/D/wk/as/BZH-Sch/app/assets/scddata.sql/_wk_as_BZH-Sch_app_assets_scddata.sql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

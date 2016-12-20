@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    signingConfigs {
+        release {
+            storeFile file("release.keystore")
+            storePassword "reeew"
+            keyAlias "reeew"
+            keyPassword "reeew"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+    defaultConfig {
+        applicationId "bzh.schiehallion.bzh"
+        minSdkVersion 9
+        targetSdkVersion 10
+        versionCode 1
+        versionName "1.0"
+        signingConfig signingConfigs.release
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile fileTree(include: 'D:\\wk\\as\\BZH-Sch\\app\\assets\\scddata.sql', dir:"files\\scddata.sql")
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+}

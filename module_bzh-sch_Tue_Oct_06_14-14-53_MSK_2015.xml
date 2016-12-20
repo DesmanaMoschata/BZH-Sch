@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_bzh-sch" default="compile.module.bzh-sch">
+  <dirname property="module.bzh-sch.basedir" file="${ant.file.module_bzh-sch}"/>
+  
+  <property name="module.jdk.home.bzh-sch" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.bzh-sch" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.bzh-sch" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.bzh-sch" value="-encoding UTF-8 -source 1.7 ${compiler.args}"/>
+  
+  <property name="bzh-sch.output.dir" value="${module.bzh-sch.basedir}/build/classes/production/BZH-Sch"/>
+  <property name="bzh-sch.testoutput.dir" value="${module.bzh-sch.basedir}/build/classes/test/BZH-Sch"/>
+  
+  <path id="bzh-sch.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="bzh-sch.module.production.classpath">
+    <path refid="${module.jdk.classpath.bzh-sch}"/>
+  </path>
+  
+  <path id="bzh-sch.runtime.production.module.classpath">
+    <pathelement location="${bzh-sch.output.dir}"/>
+  </path>
+  
+  <path id="bzh-sch.module.classpath">
+    <path refid="${module.jdk.classpath.bzh-sch}"/>
+    <pathelement location="${bzh-sch.output.dir}"/>
+  </path>
+  
+  <path id="bzh-sch.runtime.module.classpath">
+    <pathelement location="${bzh-sch.testoutput.dir}"/>
+    <pathelement location="${bzh-sch.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.bzh-sch">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.bzh-sch">
+    <patternset refid="excluded.from.module.bzh-sch"/>
+  </patternset>
+  
+  
+  <target name="compile.module.bzh-sch" depends="compile.module.bzh-sch.production,compile.module.bzh-sch.tests" description="Compile module BZH-Sch"/>
+  
+  <target name="compile.module.bzh-sch.production" depends="register.custom.compilers" description="Compile module BZH-Sch; production classes"/>
+  
+  <target name="compile.module.bzh-sch.tests" depends="register.custom.compilers,compile.module.bzh-sch.production" description="compile module BZH-Sch; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.bzh-sch" description="cleanup module">
+    <delete dir="${bzh-sch.output.dir}"/>
+    <delete dir="${bzh-sch.testoutput.dir}"/>
+  </target>
+</project>
