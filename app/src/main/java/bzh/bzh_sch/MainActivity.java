@@ -33,14 +33,18 @@
     import com.google.android.gms.common.api.GoogleApiClient;
 
     import static android.R.id.button1;
+    import static bzh.bzh_sch.R.id.action_settings;
+    import static bzh.bzh_sch.R.menu.menu_main;
 
     public class MainActivity extends AppCompatActivity {
+        boolean chkd = true;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             Button button1 = (Button) findViewById(R.id.button);
+
             button1.setText("Поиск");
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,16 +73,22 @@
             ListView lv = (ListView) findViewById(R.id.List_);
             final List<String> allinone_name = new ArrayList<String>();
             final List<String> allinone_id = new ArrayList<String>();
+            final List<String> allinone_name_mod = new ArrayList<String>();
+            final List<String> allinone_id_mod = new ArrayList<String>();
+            final List<String> crib_id = new ArrayList<String>();
             try {
                 File sdcard = Environment.getExternalStorageDirectory();
                 String filePath = sdcard.getAbsolutePath();
                 //et.setText(filePath);
-                InputStream inputStream = new FileInputStream(new File(filePath + "/scddata.scd"));
+                InputStream inputStream = new FileInputStream(new File(filePath + "/scddata-2.0.sql"));
                 if (inputStream != null) {
                     InputStreamReader isr = new InputStreamReader(inputStream);
                     BufferedReader reader = new BufferedReader(isr);
                     String line;
-                    String id_str;
+                    String id_str ="9999999";
+                    int cnt = 0;
+
+                    String[] lineparts_crib;
                     while ((line = reader.readLine()) != null) {
                         if (line.startsWith("INSERT INTO 'dance'") && (line.contains(string))) {
                             String ddd;
@@ -90,11 +100,30 @@
                                 id_str = line.substring(indxofid_s, indxofid_e);
                                 allinone_id.add(id_str);
                                 allinone_name.add(lineparts[2]);
+                                cnt++;
                             }
                         }
+                        else {
+                            if (line.startsWith("INSERT INTO 'dancecrib'")) {
+                                lineparts_crib = line.split(", ");
+                                crib_id.add(lineparts_crib[3]);
+                            }
+                        }
+                        if (line.startsWith("INSERT INTO 'dancecribsource'")) break;
+
                     }
                     inputStream.close();
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allinone_name);
+                    for(int i = 0; i < cnt; i++){
+                        if(!crib_id.contains(allinone_id.get(i))){
+                           allinone_name.set(i, allinone_name.get(i)+" [No crib]");
+                            if (!chkd){allinone_id_mod.add(allinone_id.get(i)); allinone_name_mod.add(allinone_name.get(i));}
+                        }
+                        else{
+                        allinone_id_mod.add(allinone_id.get(i)); allinone_name_mod.add(allinone_name.get(i));}
+                    }
+                    /*for (int i = 0; i < cnt; i++)
+                    {if (allinone_name.get(i).contains("No crib")){allinone_name.remove(i); allinone_id.remove(i);}}*/
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, allinone_name_mod);
                     lv.setAdapter(adapter);
 
                 }
@@ -109,8 +138,8 @@
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent2 = new Intent(MainActivity.this, description.class);
                     Intent intent1 = new Intent(MainActivity.this, description.class);
-                    intent1 = intent1.putExtra("RRR", allinone_id.get(i));
-                    intent2 = intent1.putExtra("KKK", allinone_name.get(i));
+                    intent1 = intent1.putExtra("RRR", allinone_id_mod.get(i));
+                    intent2 = intent1.putExtra("KKK", allinone_name_mod.get(i));
                     startActivity(intent1);
                 }
             });
@@ -118,24 +147,20 @@
         }
 
         public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.menu_main, menu);
+            getMenuInflater().inflate(menu_main, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
+            chkd = !chkd;
+            item.setChecked(chkd);
             return super.onOptionsItemSelected(item);
         }
 
         public static Context getInstance() {
             return null;
         }
-
 
         /**
          * ATTENTION: This was auto-generated to implement the App Indexing API.

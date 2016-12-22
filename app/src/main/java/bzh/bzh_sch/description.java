@@ -33,7 +33,7 @@ public class description extends AppCompatActivity {
             TextView tvform_ = (TextView) findViewById(R.id.tvform);
             File sdcard = Environment.getExternalStorageDirectory();
             String filePath = sdcard.getAbsolutePath();
-            InputStream inputStream = new FileInputStream(new File(filePath + "/scddata.scd"));
+            InputStream inputStream = new FileInputStream(new File(filePath + "/scddata-2.0.sql"));
             if (inputStream != null) {
                 InputStreamReader isr = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(isr);
