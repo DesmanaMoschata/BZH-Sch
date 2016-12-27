@@ -1,10 +1,18 @@
 package bzh.bzh_sch;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.io.BufferedReader;
@@ -15,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static bzh.bzh_sch.R.menu.menu_description;
+import static bzh.bzh_sch.R.menu.menu_main;
+
 public class description extends AppCompatActivity {
 
     @Override
@@ -23,22 +34,19 @@ public class description extends AppCompatActivity {
         setContentView(R.layout.activity_description);
         Intent intent = getIntent();
         RelativeLayout descrlayout = (RelativeLayout)findViewById(R.id.descrl);
-        String fName = intent.getStringExtra("RRR");
-        String dName = intent.getStringExtra("KKK");
+        String fName = intent.getStringExtra("NAME");
+        String dName = intent.getStringExtra("ID");
         this.setTitle(dName);
         TextView textView = (TextView)findViewById(R.id.textView);
         try {
             TextView tvbar_ = (TextView) findViewById(R.id.tvbar);
             TextView tvtype_ = (TextView) findViewById(R.id.tvtype);
             TextView tvform_ = (TextView) findViewById(R.id.tvform);
-            File sdcard = Environment.getExternalStorageDirectory();
-            String filePath = sdcard.getAbsolutePath();
-            InputStream inputStream = new FileInputStream(new File(filePath + "/scddata-2.0.sql"));
+            InputStream inputStream = new FileInputStream(new File(Environment.getDataDirectory().getAbsoluteFile().toString() + "/data/bzh.schiehallion.bzh/scddata-2.0.sql"));
             if (inputStream != null) {
                 InputStreamReader isr = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(isr);
                 String line;
-                String id_str;
                 boolean findit = false;
                 while ((line = reader.readLine()) != null) {
                     if(line.startsWith("INSERT INTO 'dance'" )&&(line.contains('('+fName+',')))
@@ -73,15 +81,27 @@ public class description extends AppCompatActivity {
                             line = reader.readLine();
                             if(line.contains(");")){line = line.substring(0, line.indexOf(");")-4);}
                         }
+                        ddd = ddd.replace("\n", " ");
+                        ddd = ddd.replace("  ", " ");
                         if (!ddd.contains("::\n")) ddd = ddd.replace("::", "::\n");
                         if (ddd.contains("9--")) ddd = ddd.replace("9--", "9-16");
                         if (ddd.contains("1--")) ddd = ddd.replace("1--", "1-8");
-                        if (ddd.contains("17--")) ddd = ddd.replace("17--", "17-24");
-                        if (ddd.contains("25--")) ddd = ddd.replace("25--", "25-32");
-                        if (ddd.contains("33--")) ddd = ddd.replace("33--", "33-40");
-                        if (ddd.contains("41--")) ddd = ddd.replace("41--", "41-48");
-                        if (ddd.contains("49--")) ddd = ddd.replace("49--", "49-56");
-                        if (ddd.contains("57--")) ddd = ddd.replace("57--", "57-64");
+                        if (ddd.contains("17--")) ddd = ddd.replace("17--", "\n\n17-24");
+                        if (ddd.contains("25--")) ddd = ddd.replace("25--", "\n\n25-32");
+                        if (ddd.contains("33--")) ddd = ddd.replace("33--", "\n\n33-40");
+                        if (ddd.contains("41--")) ddd = ddd.replace("41--", "\n\n41-48");
+                        if (ddd.contains("49--")) ddd = ddd.replace("49--", "\n\n49-56");
+                        if (ddd.contains("57--")) ddd = ddd.replace("57--", "\n\n57-64");
+                        if (ddd.contains("1-8")) ddd = ddd.replace("1-8", "\n\n1-8");
+                        if (ddd.contains("9-16")) ddd = ddd.replace("9-16", "\n\n9-16");
+                        if (ddd.contains("17-24")) ddd = ddd.replace("17-24", "\n\n17-24");
+                        if (ddd.contains("25-32")) ddd = ddd.replace("25-32", "\n\n25-32");
+                        if (ddd.contains("33-40")) ddd = ddd.replace("33-40", "\n\n33-40");
+                        if (ddd.contains("41-48")) ddd = ddd.replace("41-48", "\n\n41-48");
+                        if (ddd.contains("49-56")) ddd = ddd.replace("49-56", "\n\n49-56");
+                        if (ddd.contains("57-64")) ddd = ddd.replace("57-64", "\n\n57-64");
+                        if (ddd.contains("29-32")) ddd = ddd.replace("29-32", "\n\n29-32");
+                        if (ddd.contains("25-28")) ddd = ddd.replace("25-28", "\n\n25-28");
                         textView.setText(ddd);
                         break;
                     }
@@ -288,5 +308,24 @@ public class description extends AppCompatActivity {
             case ("107"):
                 return ("4 couples (Glasgow Highl)");
         } return "";
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(menu_description, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_settings3:
+                FragmentManager fm = getFragmentManager();
+                DialogFragment newFr = new aboutDiag();
+                newFr.show(fm, "AAA");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
