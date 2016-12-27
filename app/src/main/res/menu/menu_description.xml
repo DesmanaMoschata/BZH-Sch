@@ -2,9 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="bzh.bzh_sch.description">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="80"
         android:checkable="true"
         android:checked="true"
+        android:layout_width="wrap_content"
+        android:menuCategory="secondary" />
+    <item android:id="@+id/action_settings2" android:title="@string/action_setting2"
+        android:orderInCategory="100"
         android:layout_width="wrap_content"
         android:menuCategory="secondary" />
 </menu>

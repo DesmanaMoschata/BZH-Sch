@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="Font size"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/textView4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <TextView
+        android:text="Font size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_weight="0.01" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="252dp"
+        android:layout_height="259dp">
+
+        <TextView
+            android:text="Dance, dance, wherever you may be"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:layout_weight="0.01" />
+
+        <GridLayout
+            android:layout_width="347dp"
+            android:layout_height="match_parent">
+
+        </GridLayout>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:text="14" />
+
+</LinearLayout>
